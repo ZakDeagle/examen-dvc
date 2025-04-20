@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  split_data:
+    cmd: python src/split_data.py
+    deps:
+    - path: src/split_data.py
+      hash: md5
+      md5: 48be2dcf9240d90f98a44c13cd5805e6
+      size: 530
+    outs:
+    - path: data/processed_data/X_test.csv
+      hash: md5
+      md5: b6c2910e3b3fc562c5b516b63fc3e22c
+      size: 59909
+    - path: data/processed_data/X_train.csv
+      hash: md5
+      md5: ef01f67c035349e375300528a99938f5
+      size: 238533
+    - path: data/processed_data/y_test.csv
+      hash: md5
+      md5: a051d29629c8bbb4cfb7e85c7f0315da
+      size: 6456
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: a9cd9d91da89f732843d72548f64ded3
+      size: 25951
+  normalize_data:
+    cmd: python src/normalize_data.py
+    deps:
+    - path: src/normalize_data.py
+      hash: md5
+      md5: b8518dae687026961398a690653d0d51
+      size: 795
+    outs:
+    - path: data/processed_data/X_test_scaled.csv
+      hash: md5
+      md5: 5e079189af6bd091d651a89fafb1c290
+      size: 57026
+    - path: data/processed_data/X_train_scaled.csv
+      hash: md5
+      md5: c1b80eb7f083888b625dd0369cf381f8
+      size: 227497
+  grid_search:
+    cmd: python src/grid_search.py
+    deps:
+    - path: src/grid_search.py
+      hash: md5
+      md5: 7f5bdb1a438f1120bb1b7a11c97e1c6e
+      size: 585
+    outs:
+    - path: models/best_params.pkl
+      hash: md5
+      md5: fc88df180f55033ad250f38a6d6bfbcb
+      size: 72
+  train_model:
+    cmd: python src/train_model.py
+    deps:
+    - path: src/train_model.py
+      hash: md5
+      md5: 967d48b2869f18e7a79dfef22464c127
+      size: 422
+    outs:
+    - path: models/trained_model.pkl
+      hash: md5
+      md5: 911c7d043f00e4a13b08789a5751ad0f
+      size: 534392
+  evaluate_model:
+    cmd: python src/evaluate_model.py
+    deps:
+    - path: src/evaluate_model.py
+      hash: md5
+      md5: f6cfc3918071a2c1cd2f2d8bc443503c
+      size: 488
+    outs:
+    - path: metrics/scores.json
+      hash: md5
+      md5: bc14abc6e294f3d8159c84af96e07176
+      size: 64
